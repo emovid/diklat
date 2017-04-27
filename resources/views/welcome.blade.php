@@ -8,7 +8,7 @@
                 <div class="panel-heading">Welcome</div>
 
                 <div class="panel-body">
-                    Your Application's Landing Page.
+                    Selamat datang di eDiklat, silakang login untuk menggunakan sistem.
                 </div>
             </div>
         </div>

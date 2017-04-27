@@ -10,11 +10,11 @@
 
                 <div class="panel-body">
                     <div class="col-xs-12">
-                      <label> Regional : 9 </label>
+                      <label> Regional : {{Auth::user()->regionalUser}} </label>
                       <br/>
-                      <label> TIM : A </label>
+                      <label> TIM : {{Auth::user()->timUser}} </label>
                     </div>
-                    </div>
+                   
 
                     <div class="col-xs-12">
                         @if ($diklatList->count())
@@ -35,25 +35,40 @@
                                         <?php $i++; ?>
                                     <tr>
                                         <td>{{ $book->id }}</td>
-                                        <td>{{ $book->nama }}</td>
-                                        <td>{{ $book->waktu }}</td>
-                                        <td>{{ $book->tempat }}</td>
-                                        <td>{{ $book->status }}</td>
+                                        <td>{{ $book->namaDiklat }}</td>
+                                        <td>{{ $book->waktuDiklat }}</td>
+                                        <td>{{ $book->tempatDiklat }}</td>
+                                        <td>{{ $book->statusDiklat }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <center>
-                            {!!$diklatList->render()!!}
+                            
                          </center>
                         @else
                             There are no book in the book list
                         @endif
                     </div>
 
+                    <div class="col-xs-12">
+                      <div style="float:right">
+                        <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/ubahDiklat') }}'">Ubah</button>
+                        <button class="btn btn-primary btn-simple" onclick="goBack()">Kembali</button>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
+
+@section('body.script')
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+@show

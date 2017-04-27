@@ -34,7 +34,9 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/ubahIdentitas', 'HomeController@ubahIdentitas');
+Route::get('/ubahIdentitas/{id}', 'HomeController@ubahIdentitas');
+
+Route::post('/update/{id}', 'HomeController@update');
 
 Route::get('/jadwalDiklat', 'HomeController@jadwalDiklat');
 

@@ -10,11 +10,11 @@
 
                 <div class="panel-body">
                     <div class="col-xs-12">
-                      <label> Regional : 9 </label>
+                      <label> Regional : {{Auth::user()->regionalUser}} </label>
                       <br/>
-                      <label> TIM : A </label>
+                      <label> TIM : {{Auth::user()->timUser}} </label>
                     </div>
-                    </div>
+                    
 
                     <div class="col-xs-12">
                         @if ($auditList->count())
@@ -31,29 +31,41 @@
 
                                 <tbody>
                                     <?php $i=0; ?>
-                                    @foreach ($diklatList as $book)
+                                    @foreach ($auditList as $book)
                                         <?php $i++; ?>
                                     <tr>
                                         <td>{{ $book->id }}</td>
-                                        <td>{{ $book->nama }}</td>
-                                        <td>{{ $book->waktu_mulai }}</td>
-                                        <td>{{ $book->tempat_selesai }}</td>
-                                        <td>{{ $book->keterangan }}</td>
+                                        <td>{{ $book->unitKerjaAudit }}</td>
+                                        <td>{{ $book->waktuMulaiAudit }}</td>
+                                        <td>{{ $book->waktuSelesaiAudit }}</td>
+                                        <td>{{ $book->keteranganAudit }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                             <center>
-                            {!!$auditList->render()!!}
+                            
                          </center>
                         @else
                             There are no book in the book list
                         @endif
                     </div>
-
+                    <div class="col-xs-12">
+                      <div style="float:right">
+                        <button class="btn btn-primary btn-simple" onclick="goBack()">Kembali</button>
+                      </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@section('body.script')
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+@show

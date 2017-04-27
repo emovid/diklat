@@ -9,14 +9,14 @@
 
                 <div class="panel-body">
                     <div class="col-xs-12">
-                        <div class="col-xs-4">
-                            <button type="button" class="btn btn-block btn-info" href="{{ url('/ubahIdentitas') }}">Ubah Identitas</button>
+                        <div class="col-xs-4">                        
+                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/ubahIdentitas/'.Auth::user()->id) }}'">Ubah Identitas</button>
                         </div>
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-block btn-info" href="{{ url('/jadwalDiklat') }}">Jadwal Diklat</button>
+                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalDiklat') }}'">Jadwal Diklat</button>
                         </div>
                         <div class="col-xs-4">
-                            <button type="button" class="btn btn-block btn-info" href="{{ url('/jadwalAudit') }}">Isi Jadwal Audit</button>
+                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalAudit') }}'">Isi Jadwal Audit</button>
                         </div>
                     </div>
 

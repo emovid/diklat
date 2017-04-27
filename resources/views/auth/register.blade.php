@@ -38,6 +38,34 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('regionalUser') ? ' has-error' : '' }}">
+                            <label for="regionalUser" class="col-md-4 control-label">Regional</label>
+
+                            <div class="col-md-6">
+                                <input id="regionalUser" type="text" class="form-control" name="regionalUser" value="{{ old('regionalUser') }}">
+
+                                @if ($errors->has('regionalUser'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('regionalUser') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('timUser') ? ' has-error' : '' }}">
+                            <label for="timUser" class="col-md-4 control-label">Tim</label>
+
+                            <div class="col-md-6">
+                                <input id="timUser" type="text" class="form-control" name="timUser" value="{{ old('timUser') }}">
+
+                                @if ($errors->has('timUser'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('timUser') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 
