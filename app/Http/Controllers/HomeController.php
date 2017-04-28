@@ -32,10 +32,23 @@ class HomeController extends Controller
 
     }
 
+    public function tambahDiklat()
+    {
+        return view('tambahDiklat');
+
+    }
+
     public function ubahIdentitas($id)
     {
         $book = User::findOrFail($id);
         return view('member.edit',  compact('book'));
+
+    }
+
+    public function ubahDiklatPerID($id)
+    {
+        $book = Diklat::findOrFail($id);
+        return view('ubahDiklatPerID',  compact('book'));
 
     }
 
@@ -47,8 +60,20 @@ class HomeController extends Controller
         $book = User::findOrFail($id);
         $book->update($request->all());
         
-        \Session::flash('flash_message', 'Data pegawai tealh diperbarui');
+        \Session::flash('flash_message', 'Data member telah diperbarui');
         return redirect('/home');
+    }
+
+    public function updateDiklat($id, Request $request) {
+        $this->validate($request,
+                [
+                'namaDiklat' => 'required', 
+                ]);
+        $book = Diklat::findOrFail($id);
+        $book->update($request->all());
+        
+        \Session::flash('flash_message', 'Data diklat telah diperbarui');
+        return redirect('/ubahDiklat');
     }
     
 
@@ -59,10 +84,10 @@ class HomeController extends Controller
         return view('jadwalDiklat')->with('diklatList', $diklatList);
     }
 
-     public function ubahDiklat()
+    public function ubahDiklat()
     {
         $tim = Auth::user()->timUser;
-        $diklatList = Diklat::where('timDiklat', '=', $tim)->paginate(9);
+        $diklatList = Diklat::where('timDiklat', '=', $tim)->paginate(20);
         return view('ubahDiklat')->with('diklatList', $diklatList);
     }
 
@@ -71,5 +96,46 @@ class HomeController extends Controller
         $tim = Auth::user()->timUser;
         $auditList = Audit::where('timAudit', '=', $tim)->paginate(9);
         return view('jadwalAudit')->with('auditList', $auditList);
+    }
+
+    public function delete($id) {
+        Diklat::find($id)->delete();
+        \Session::flash('flash_message', 'Data diklat telah dihapus');
+        return Redirect('/ubahDiklat');
+    }
+
+    public function createDiklat(Request $request) {
+        // validation rules
+       $diklatList = Diklat::all();
+       $yeah =0;
+       foreach ($diklatList as $diklats) {
+           $diklat = $diklats->namaDiklat;
+
+           if($_POST["namaDiklat"]==$diklat){
+            $yeah=$yeah+1;
+           }
+       }
+
+       if($yeah==0){
+       $this->validate($request,
+                [
+                'namaDiklat' => 'required|min:4'
+                ]); 
+        
+
+        Diklat::create(
+             
+            $request->all()
+            );
+         
+        \Session::flash('flash_message', 'Diklat baru telah ditambahkan');
+        return redirect('/ubahDiklat');
+        }
+
+        else{
+           
+            \Session::flash('error', 'Maaf, data sudah ada, gunakan edit untuk memperbarui. Mohon cek keberadaan data terlebih dahulu!');
+            return redirect('/tambahDiklat');
+        }
     }
 }

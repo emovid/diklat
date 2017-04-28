@@ -53,8 +53,9 @@
 
                     <div class="col-xs-12">
                       <div style="float:right">
+                        <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/home') }}'">Kembali</button>
                         <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/ubahDiklat') }}'">Ubah</button>
-                        <button class="btn btn-primary btn-simple" onclick="goBack()">Kembali</button>
+                        
                       </div>
                     </div>
                 </div>
@@ -65,10 +66,3 @@
 
 @endsection
 
-@section('body.script')
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
-@show
