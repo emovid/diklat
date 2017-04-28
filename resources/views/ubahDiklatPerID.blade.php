@@ -6,9 +6,17 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Perbarui Data Diklat</div>
+                <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+                	<div class="col-xs-12">
+						<ol class="breadcrumb">
+						  <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+						  <li class="breadcrumb-item"><a href="{{ url('/jadwalDiklat') }}">Jadwal Diklat</a></li>
+						  <li class="breadcrumb-item"><a href="{{ url('/ubahDiklat') }}">Ubah Data Diklat</a></li>
+						  <li class="breadcrumb-item active">Edit Form</li>
+						</ol>
+                	</div>
                     <div class="col-xs-12">
                         <form action="{{ url('/updateDiklat/'.$book->id) }}" method="post" enctype="multipart/form-data">
 

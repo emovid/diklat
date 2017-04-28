@@ -6,9 +6,15 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Jadwal Audit</div>
+                <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
+                    <div class="col-xs-12">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                          <li class="breadcrumb-item active">Jadwal Diklat</li>
+                        </ol>
+                    </div>
                     <div class="col-xs-12">
                       <label> Regional : {{Auth::user()->regionalUser}} </label>
                       <br/>
