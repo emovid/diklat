@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/forbidden', function () {
+    return view('errors.404');
+});
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -25,6 +28,20 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('/ubahDiklat', 'HomeController@ubahDiklat');
+
+    Route::get('/delete/{id}', 'HomeController@delete');
+
+	Route::get('/ubahDiklatPerID/{id}', 'HomeController@ubahDiklatPerID');
+
+	Route::post('/updateDiklat/{id}', 'HomeController@updateDiklat');
+
+	Route::post('/tambahDiklatBaru', 'HomeController@createDiklat');
+
+	Route::get('/tambahDiklat', 'HomeController@tambahDiklat');
+});
 
 Route::group(['middleware' => ['web']], function () {
     //
@@ -38,18 +55,9 @@ Route::get('/ubahIdentitas/{id}', 'HomeController@ubahIdentitas');
 
 Route::post('/update/{id}', 'HomeController@update');
 
-Route::get('/delete/{id}', 'HomeController@delete');
 
-Route::get('/ubahDiklatPerID/{id}', 'HomeController@ubahDiklatPerID');
-
-Route::post('/updateDiklat/{id}', 'HomeController@updateDiklat');
-
-Route::post('/tambahDiklatBaru', 'HomeController@createDiklat');
-
-Route::get('/tambahDiklat', 'HomeController@tambahDiklat');
 
 Route::get('/jadwalDiklat', 'HomeController@jadwalDiklat');
 
-Route::get('/ubahDiklat', 'HomeController@ubahDiklat');
 
 Route::get('/jadwalAudit', 'HomeController@jadwalAudit');
