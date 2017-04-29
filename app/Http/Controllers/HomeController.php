@@ -38,6 +38,12 @@ class HomeController extends Controller
 
     }
 
+    public function tambahAudit()
+    {
+        return view('tambahAudit');
+
+    }
+
     public function ubahIdentitas($id)
     {
         $book = User::findOrFail($id);
@@ -49,6 +55,13 @@ class HomeController extends Controller
     {
         $book = Diklat::findOrFail($id);
         return view('ubahDiklatPerID',  compact('book'));
+
+    }
+
+    public function ubahAuditPerID($id)
+    {
+        $book = Audit::findOrFail($id);
+        return view('ubahAuditPerID',  compact('book'));
 
     }
 
@@ -75,26 +88,39 @@ class HomeController extends Controller
         \Session::flash('flash_message', 'Data diklat telah diperbarui');
         return redirect('/ubahDiklat');
     }
+
+    public function updateAudit($id, Request $request) {
+        $this->validate($request,
+                [
+                'waktuMulaiAudit' => 'required', 
+                ]);
+        $book = Audit::findOrFail($id);
+        $book->update($request->all());
+        
+        \Session::flash('flash_message', 'Data audit telah diperbarui');
+        return redirect('/jadwalAudit');
+    }
+    
     
 
     public function jadwalDiklat()
     {
-        $tim = Auth::user()->timUser;
-        $diklatList = Diklat::where('timDiklat', '=', $tim)->paginate(9);
+        $regional = Auth::user()->regionalUser;
+        $diklatList = Diklat::where('regionalDiklat', '=', $regional)->paginate(9);
         return view('jadwalDiklat')->with('diklatList', $diklatList);
     }
 
     public function ubahDiklat()
     {
-        $tim = Auth::user()->timUser;
-        $diklatList = Diklat::where('timDiklat', '=', $tim)->paginate(20);
+        $regional = Auth::user()->regionalUser;
+        $diklatList = Diklat::where('regionalDiklat', '=', $regionalDiklat)->paginate(20);
         return view('ubahDiklat')->with('diklatList', $diklatList);
     }
 
     public function jadwalAudit()
     {
-        $tim = Auth::user()->timUser;
-        $auditList = Audit::where('timAudit', '=', $tim)->paginate(9);
+        $regional = Auth::user()->regionalUser;
+        $auditList = Audit::where('regionalAudit', '=', $regional)->paginate(9);
         return view('jadwalAudit')->with('auditList', $auditList);
     }
 
@@ -102,6 +128,12 @@ class HomeController extends Controller
         Diklat::find($id)->delete();
         \Session::flash('flash_message', 'Data diklat telah dihapus');
         return Redirect('/ubahDiklat');
+    }
+
+    public function deleteAudit($id) {
+        Audit::find($id)->delete();
+        \Session::flash('flash_message', 'Data audit telah dihapus');
+        return Redirect('/jadwalAudit');
     }
 
     public function createDiklat(Request $request) {
@@ -130,6 +162,41 @@ class HomeController extends Controller
          
         \Session::flash('flash_message', 'Diklat baru telah ditambahkan');
         return redirect('/ubahDiklat');
+        }
+
+        else{
+           
+            \Session::flash('error', 'Maaf, data sudah ada, gunakan edit untuk memperbarui. Mohon cek keberadaan data terlebih dahulu!');
+            return redirect('/tambahDiklat');
+        }
+    }
+
+    public function createAudit(Request $request) {
+        // validation rules
+       $auditList = Audit::all();
+       $yeah =0;
+       foreach ($auditList as $audits) {
+           $audit = $audits->waktuMulaiAudit;
+
+           if($_POST["waktuMulaiAudit"]==$audit){
+            $yeah=$yeah+1;
+           }
+       }
+
+       if($yeah==0){
+       $this->validate($request,
+                [
+                'waktuMulaiAudit' => 'required'
+                ]); 
+        
+
+        Audit::create(
+             
+            $request->all()
+            );
+         
+        \Session::flash('flash_message', 'Audit baru telah ditambahkan');
+        return redirect('/jadwalAudit');
         }
 
         else{

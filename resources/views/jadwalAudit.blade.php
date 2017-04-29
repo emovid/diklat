@@ -18,7 +18,9 @@
                     <div class="col-xs-12">
                       <label> Regional : {{Auth::user()->regionalUser}} </label>
                       <br/>
-                      <label> TIM : {{Auth::user()->timUser}} </label>
+                        <?php if (Auth::user()->role == "auditor"): ?>
+                        <label> TIM : {{Auth::user()->timUser}} </label>
+                        <?php endif ?>
                     </div>
                     
 
@@ -45,6 +47,8 @@
                                         <td>{{ $book->waktuMulaiAudit }}</td>
                                         <td>{{ $book->waktuSelesaiAudit }}</td>
                                         <td>{{ $book->keteranganAudit }}</td>
+                                        <td><a class="btn btn-warning" data-placement="bottom" title="Edit Data" href="{{ url('/ubahAuditPerID/'.$book->id)}}"><span class="glyphicon glyphicon-pencil"></a></td>
+                                        <td><a class="btn btn-danger" data-placement="bottom" title="Hapus Data" method="get" href="{{ url('/deleteAudit/'.$book->id) }}"><span class="glyphicon glyphicon-trash"></a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -59,6 +63,7 @@
                     <div class="col-xs-12">
                       <div style="float:right">
                         <button class="btn btn-primary btn-simple" onclick="goBack()">Kembali</button>
+                        <button class="btn btn-primary btn-success" onclick="location.href='{{ url('/tambahAudit') }}'">Tambah Data</button>
                       </div>
                     </div>
                 </div>

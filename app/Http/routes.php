@@ -34,13 +34,23 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('/delete/{id}', 'HomeController@delete');
 
+    Route::get('/deleteAudit/{id}', 'HomeController@deleteAudit');
+
 	Route::get('/ubahDiklatPerID/{id}', 'HomeController@ubahDiklatPerID');
+
+	Route::get('/ubahAuditPerID/{id}', 'HomeController@ubahAuditPerID');
 
 	Route::post('/updateDiklat/{id}', 'HomeController@updateDiklat');
 
+	Route::post('/updateAudit/{id}', 'HomeController@updateAudit');
+
 	Route::post('/tambahDiklatBaru', 'HomeController@createDiklat');
 
+	Route::post('/tambahAuditBaru', 'HomeController@createAudit');
+
 	Route::get('/tambahDiklat', 'HomeController@tambahDiklat');
+
+	Route::get('/tambahAudit', 'HomeController@tambahAudit');
 });
 
 Route::group(['middleware' => ['web']], function () {

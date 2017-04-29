@@ -17,12 +17,23 @@
                         <div class="col-xs-4">                        
                             <button class="btn btn-block btn-info" onclick="location.href='{{ url('/ubahIdentitas/'.Auth::user()->id) }}'">Ubah Identitas</button>
                         </div>
-                        <div class="col-xs-4">
+                        <?php if (Auth::user()->role == "adminRegional"): ?>
+                            <div class="col-xs-4">
                             <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalDiklat') }}'">Jadwal Diklat</button>
-                        </div>
-                        <div class="col-xs-4">
-                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalAudit') }}'">Isi Jadwal Audit</button>
-                        </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalAudit') }}'">Jadwal Audit</button>
+                            </div>
+                        <?php else: ?>
+                             <div class="col-xs-4">
+                                <button class="btn btn-block btn-info" onclick="location.href='{{ url('/pilihJadwal') }}'">Pilih Jadwal</button>
+                            </div>
+                        <?php endif ?>
+
+                        
+                        
+                        
+                       
                     </div>
 
                     
