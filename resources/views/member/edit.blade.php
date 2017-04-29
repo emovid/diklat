@@ -26,15 +26,21 @@
 						    <input required="required"  placeholder="Nama" type="text" name = "name" class="form-control" value="{{$book->name}}" />
 						    </div>
 
+						    <?php if (Auth::user()->role != "superAdmin"): ?>
 						    <div class="form-group">
 						    	<label>Regional</label>
 						    	<input required="required"  placeholder="Regional" type="text" name = "regionalUser" class="form-control" value="{{$book->regionalUser}}"/>
 							</div>
+							<?php endif ?>
 						    
-						    <div class="form-group">
+							<?php if (Auth::user()->role == "auditor"): ?>
+	                        <div class="form-group">
 						    	<label>Tim</label>
 						    	<input required="required"  placeholder="Tim" type="text" name = "timUser" class="form-control" value="{{$book->timUser}}"/>
 							</div>
+	                        <?php endif ?>
+						    
+						    
 
 							<div class="form-group">
 								<label>Email</label>

@@ -14,12 +14,12 @@ class CreateJadwalDiklatsTable extends Migration
     {
         Schema::create('jadwalDiklats', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('timDiklat');
+            
             $table->string('regionalDiklat');
             $table->string('namaDiklat');
-            $table->string('waktuDiklat');
+            $table->date('waktuDiklat');
             $table->string('tempatDiklat');
-            $table->string('statusDiklat');
+            $table->string('statusDiklat')->default("Diajukan");
             $table->timestamps();
         });
     }

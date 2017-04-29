@@ -15,35 +15,48 @@
 							<?php $i=0; ?>
 						    
 							<input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-							<div class="form-group">
-								<label>Tim Diklat</label>
-						    <input required="required"  placeholder="Tim Diklat" type="text" name = "timDiklat" class="form-control" />
-						    </div>
+							
 
 						    <div class="form-group">
-								<label>Regional Diklat</label>
-						    <input required="required"  placeholder="Regional Diklat" type="text" name = "regionalDiklat" class="form-control" />
+								<label>Regional</label>
+						    <input required="required"  placeholder="Regional" type="text" name = "regionalDiklat" class="form-control" readonly="readonly" value="{{Auth::user()->regionalUser}}" />
 						    </div>
 
-							<div class="form-group">
+							
+
+						    <div class="form-group">
 								<label>Nama Diklat</label>
-						    <input required="required"  placeholder="Nama Diklat" type="text" name = "namaDiklat" class="form-control" />
-						    </div>
+			                      <select required="required" id="namaDiklat" name="namaDiklat" class="form-control selectpicker"  title="Nama Diklat" >
+			                        <option value="Metodologi Audit Audit">Metodologi Audit</option>
+			                        <option value="Manajemen Resiko Dasar">Manajemen Resiko Dasar</option>
+			                        <option value="Penulisan Laporan Hasil Pemeriksaan">Penulisan Laporan Hasil Pemeriksaan</option>
+			                        <option value="Teknik Wawancara untuk Auditor">Teknik Wawancara untuk Auditor</option>
+			                        <option value="Pengadaan Barang Jasa APLN">Pengadaan Barang Jasa APLN</option>
+			                        <option value="Pengantar Fraud Risk Management">Pengantar Fraud Risk Management</option>
 
-						    <div class="form-group">
-						    	<label>Waktu Diklat</label>
-						    	<input required="required"  placeholder="Waktu Diklat" type="text" name = "waktuDiklat" class="form-control" />
-							</div>
+			                      </select>
+
+		                    </div>
+
+						    
+
+							<div class="form-group">
+								<label>Waktu Diklat</label>
+							    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy/mm/dd">
+							    <input required="required" type="text" class="form-control" placeholder="Waktu Diklat" name = "waktuDiklat" >
+								    <div class="input-group-addon">
+								        <span class="glyphicon glyphicon-th"></span>
+								    </div>
+								</div>
+
+						    </div>
 						    
 						    <div class="form-group">
 						    	<label>Tempat Diklat</label>
 						    	<input required="required"  placeholder="Tempat Diklat" type="text" name = "tempatDiklat" class="form-control" />
 							</div>
 
-							<div class="form-group">
-								<label>Status Diklat</label>
-						    	<input required="required"  placeholder="Status Diklat" type="text" name = "statusDiklat" class="form-control" />
-							</div>
+							
 
 
 

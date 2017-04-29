@@ -11,71 +11,60 @@
                 <div class="panel-body">
                     <div class="col-xs-12">
                         <ol class="breadcrumb">
-                          <li class="breadcrumb-item"><a href='{{ url('/home') }}'>Home</a></li>
-                          <li class="breadcrumb-item active">Ajukan Jadwal Diklat</li>
+                          <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                          <li class="breadcrumb-item active">Lihat Jadwal Audit</li>
                         </ol>
                     </div>
                     <div class="col-xs-12">
                       <label> Regional : {{Auth::user()->regionalUser}} </label>
                       <br/>
-
-                      <?php if (Auth::user()->role == "auditor"): ?>
+                        <?php if (Auth::user()->role == "auditor"): ?>
                         <label> TIM : {{Auth::user()->timUser}} </label>
                         <?php endif ?>
                     </div>
-
-                  
                     
 
                     <div class="col-xs-12">
-                        @if ($diklatList->count())
+                        @if ($auditList->count())
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>Nama Diklat</th>
-                                        <th>Waktu</th>
-                                        <th>Tempat</th>
-                                        <th>Status</th>
-
+                                        <th>Unit Kerja</th>
+                                        <th>Tim</th>
+                                        <th>Waktu Mulai</th>
+                                        <th>Waktu Selesai</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
                                     <?php $i=0; ?>
-                                    @foreach ($diklatList as $book)
+                                    @foreach ($auditList as $book)
                                         <?php $i++; ?>
                                     <tr>
                                         <td>{{ $book->id }}</td>
-                                        <td>{{ $book->namaDiklat }}</td>
-                                        <td>{{ $book->waktuDiklat }}</td>
-                                        <td>{{ $book->tempatDiklat }}</td>
-                                        <td>{{ $book->statusDiklat }}</td>
-                                    
-
+                                        <td>{{ $book->unitKerjaAudit }}</td>
+                                        <td>{{ $book->timAudit }}</td>
+                                        <td>{{ $book->waktuMulaiAudit }}</td>
+                                        <td>{{ $book->waktuSelesaiAudit }}</td>
+                                        <td>{{ $book->keteranganAudit }}</td>
                                         
-                                        <td><a class="btn btn-warning" data-placement="bottom" title="Edit Data" href="{{ url('/ubahDiklatPerID/'.$book->id)}}"><span class="glyphicon glyphicon-pencil"></a></td>
-                                        <td><a class="btn btn-danger" data-placement="bottom" title="Hapus Data" method="get" href="{{ url('/delete/'.$book->id) }}"><span class="glyphicon glyphicon-trash"></a></td>
-
-                                        
-
                                     </tr>
-
                                     @endforeach
                                 </tbody>
                             </table>
                             <center>
-                            
+                            <?php echo $auditList->render(); ?>
                          </center>
                         @else
                             There are no book in the book list
                         @endif
                     </div>
                     <div class="col-xs-12">
-                      
                       <div style="float:right">
-                      <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/home') }}'">Kembali</button>
-                      <button class="btn btn-primary btn-success" onclick="location.href='{{ url('/tambahDiklat') }}'">Tambah Data</button>
+                        <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/home') }}'">Kembali</button>
+                        
                       </div>
                     </div>
                 </div>
@@ -84,3 +73,11 @@
     </div>
 </div>
 @endsection
+
+@section('body.script')
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>
+@show

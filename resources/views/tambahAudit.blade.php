@@ -75,8 +75,15 @@ if (Auth::user()->regionalUser == "1") {
 						    </div>
 
 						    <div class="form-group">
+								<label>Tim</label>
+						    <input required="required"  placeholder="Tim" type="text" name = "timAudit" class="form-control"  />
+						    </div>
+
+						    
+
+						    <div class="form-group">
 								<label>Waktu Mulai</label>
-						    <div class="input-group date" data-provide="datepicker">
+						    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy/mm/dd">
 						    <input required="required" type="text" class="form-control" placeholder="Waktu Mulai" name = "waktuMulaiAudit">
 							    <div class="input-group-addon">
 							        <span class="glyphicon glyphicon-th"></span>
@@ -87,7 +94,7 @@ if (Auth::user()->regionalUser == "1") {
 
 							<div class="form-group">
 								<label>Waktu Selesai</label>
-						    <div class="input-group date" data-provide="datepicker">
+						    <div class="input-group date" data-provide="datepicker" data-date-format="yyyy/mm/dd">
 						    <input required="required" type="text" class="form-control" placeholder="Waktu Selesai" name = "waktuSelesaiAudit">
 							    <div class="input-group-addon">
 							        <span class="glyphicon glyphicon-th"></span>

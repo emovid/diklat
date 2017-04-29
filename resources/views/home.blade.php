@@ -17,16 +17,32 @@
                         <div class="col-xs-4">                        
                             <button class="btn btn-block btn-info" onclick="location.href='{{ url('/ubahIdentitas/'.Auth::user()->id) }}'">Ubah Identitas</button>
                         </div>
-                        <?php if (Auth::user()->role == "adminRegional"): ?>
+                        <?php if ((Auth::user()->role == "adminRegional") || (Auth::user()->role == "superAdmin")): ?>
+                            
+                            <?php if (Auth::user()->role == "adminRegional"): ?>
+
                             <div class="col-xs-4">
-                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalDiklat') }}'">Jadwal Diklat</button>
+                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/ubahDiklat') }}'">Ajukan Jadwal Diklat</button>
                             </div>
+
+                            <?php else: ?>
+
+                            <div class="col-xs-4">
+                            <button class="btn btn-block btn-info" onclick="location.href='{{ url('/approveDiklat') }}'">Approve Jadwal Diklat</button>
+                            </div>
+
+                            <?php endif ?>
+
+
                             <div class="col-xs-4">
                                 <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalAudit') }}'">Jadwal Audit</button>
                             </div>
                         <?php else: ?>
                              <div class="col-xs-4">
-                                <button class="btn btn-block btn-info" onclick="location.href='{{ url('/pilihJadwal') }}'">Pilih Jadwal</button>
+                                <button class="btn btn-block btn-info" onclick="location.href='{{ url('/jadwalAuditor') }}'">Pilih Jadwal Diklat</button>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-block btn-info" onclick="location.href='{{ url('/lihatAudit') }}'">Lihat Jadwal Audit</button>
                             </div>
                         <?php endif ?>
 

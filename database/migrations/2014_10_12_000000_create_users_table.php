@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('regionalUser');
             $table->string('statuslUser');
             $table->string('timUser');
+            $table->string('role')->default("auditor");
             $table->rememberToken();
             $table->timestamps();
         });

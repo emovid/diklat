@@ -17,8 +17,8 @@ class CreateJadwalAuditsTable extends Migration
             $table->string('timAudit');
             $table->string('regionalAudit');
             $table->string('unitKerjaAudit');
-            $table->string('waktuMulaiAudit');
-            $table->string('waktuSelesaiAudit');
+            $table->date('waktuMulaiAudit');
+            $table->date('waktuSelesaiAudit');
             $table->string('keteranganAudit');
             $table->timestamps();
         });

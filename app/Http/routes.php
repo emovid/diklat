@@ -29,6 +29,10 @@ Route::get('/forbidden', function () {
 |
 */
 
+Route::group(['middleware' => 'superAdmin'], function () {
+    Route::get('/approveDiklat', 'HomeController@approveDiklat');
+});
+
 Route::group(['middleware' => 'admin'], function () {
     Route::get('/ubahDiklat', 'HomeController@ubahDiklat');
 
@@ -51,6 +55,10 @@ Route::group(['middleware' => 'admin'], function () {
 	Route::get('/tambahDiklat', 'HomeController@tambahDiklat');
 
 	Route::get('/tambahAudit', 'HomeController@tambahAudit');
+
+	Route::get('/jadwalDiklat', 'HomeController@jadwalDiklat');
+
+	Route::get('/jadwalAudit', 'HomeController@jadwalAudit');
 });
 
 Route::group(['middleware' => ['web']], function () {
@@ -67,7 +75,16 @@ Route::post('/update/{id}', 'HomeController@update');
 
 
 
-Route::get('/jadwalDiklat', 'HomeController@jadwalDiklat');
 
 
-Route::get('/jadwalAudit', 'HomeController@jadwalAudit');
+Route::get('/jadwalAuditor', 'HomeController@jadwalAuditor');
+
+Route::get('/tambahJadwalAuditor', 'HomeController@tambahJadwalAuditor');
+
+Route::post('/tambahJadwalAuditorBaru', 'HomeController@createJadwalAuditor');
+
+Route::get('/deleteJadwalAuditor/{id}', 'HomeController@deleteJadwalAuditor');
+
+Route::get('/lihatAudit', 'HomeController@lihatAudit');
+
+

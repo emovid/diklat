@@ -12,17 +12,10 @@
                     <div class="col-xs-12">
                         <ol class="breadcrumb">
                           <li class="breadcrumb-item"><a href='{{ url('/home') }}'>Home</a></li>
-                          <li class="breadcrumb-item active">Ajukan Jadwal Diklat</li>
+                          <li class="breadcrumb-item active">Approve Jadwal Diklat</li>
                         </ol>
                     </div>
-                    <div class="col-xs-12">
-                      <label> Regional : {{Auth::user()->regionalUser}} </label>
-                      <br/>
 
-                      <?php if (Auth::user()->role == "auditor"): ?>
-                        <label> TIM : {{Auth::user()->timUser}} </label>
-                        <?php endif ?>
-                    </div>
 
                   
                     
@@ -33,6 +26,7 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <th>Regional</th>
                                         <th>Nama Diklat</th>
                                         <th>Waktu</th>
                                         <th>Tempat</th>
@@ -47,6 +41,7 @@
                                         <?php $i++; ?>
                                     <tr>
                                         <td>{{ $book->id }}</td>
+                                        <td>{{ $book->regionalDiklat }}</td>
                                         <td>{{ $book->namaDiklat }}</td>
                                         <td>{{ $book->waktuDiklat }}</td>
                                         <td>{{ $book->tempatDiklat }}</td>
@@ -55,7 +50,7 @@
 
                                         
                                         <td><a class="btn btn-warning" data-placement="bottom" title="Edit Data" href="{{ url('/ubahDiklatPerID/'.$book->id)}}"><span class="glyphicon glyphicon-pencil"></a></td>
-                                        <td><a class="btn btn-danger" data-placement="bottom" title="Hapus Data" method="get" href="{{ url('/delete/'.$book->id) }}"><span class="glyphicon glyphicon-trash"></a></td>
+                                        
 
                                         
 
@@ -75,7 +70,7 @@
                       
                       <div style="float:right">
                       <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/home') }}'">Kembali</button>
-                      <button class="btn btn-primary btn-success" onclick="location.href='{{ url('/tambahDiklat') }}'">Tambah Data</button>
+                      
                       </div>
                     </div>
                 </div>

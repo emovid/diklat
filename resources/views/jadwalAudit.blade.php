@@ -16,7 +16,9 @@
                         </ol>
                     </div>
                     <div class="col-xs-12">
+                    <?php if (Auth::user()->role != "superAdmin"): ?>
                       <label> Regional : {{Auth::user()->regionalUser}} </label>
+                      <?php endif ?>
                       <br/>
                         <?php if (Auth::user()->role == "auditor"): ?>
                         <label> TIM : {{Auth::user()->timUser}} </label>
@@ -30,7 +32,11 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
+                                        <?php if (Auth::user()->role == "superAdmin"): ?>
+                                        <th>Regional</th>
+                                        <?php endif ?>
                                         <th>Unit Kerja</th>
+                                        <th>Tim</th>
                                         <th>Waktu Mulai</th>
                                         <th>Waktu Selesai</th>
                                         <th>Keterangan</th>
@@ -43,7 +49,11 @@
                                         <?php $i++; ?>
                                     <tr>
                                         <td>{{ $book->id }}</td>
+                                        <?php if (Auth::user()->role == "superAdmin"): ?>
+                                        <td>{{ $book->regionalAudit }}</td>
+                                        <?php endif ?>
                                         <td>{{ $book->unitKerjaAudit }}</td>
+                                        <td>{{ $book->timAudit }}</td>
                                         <td>{{ $book->waktuMulaiAudit }}</td>
                                         <td>{{ $book->waktuSelesaiAudit }}</td>
                                         <td>{{ $book->keteranganAudit }}</td>
@@ -54,7 +64,7 @@
                                 </tbody>
                             </table>
                             <center>
-                            
+                            <?php echo $auditList->render(); ?>
                          </center>
                         @else
                             There are no book in the book list
@@ -62,7 +72,7 @@
                     </div>
                     <div class="col-xs-12">
                       <div style="float:right">
-                        <button class="btn btn-primary btn-simple" onclick="goBack()">Kembali</button>
+                        <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/home') }}'">Kembali</button>
                         <button class="btn btn-primary btn-success" onclick="location.href='{{ url('/tambahAudit') }}'">Tambah Data</button>
                       </div>
                     </div>
