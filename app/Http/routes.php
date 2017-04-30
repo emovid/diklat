@@ -87,4 +87,5 @@ Route::get('/deleteJadwalAuditor/{id}', 'HomeController@deleteJadwalAuditor');
 
 Route::get('/lihatAudit', 'HomeController@lihatAudit');
 
+Route::get('/tambahJadwalAuditorPerID/{id}', 'HomeController@tambahJadwalAuditorPerID');
 

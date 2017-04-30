@@ -82,6 +82,13 @@ class HomeController extends Controller
 
     }
 
+    public function tambahJadwalAuditorPerID($id)
+    {
+        $book = Diklat::findOrFail($id);
+        return view('tambahJadwalAuditorPerID',  compact('book'));
+
+    }
+
     public function update($id, Request $request) {
         $this->validate($request,
                 [
@@ -177,13 +184,18 @@ class HomeController extends Controller
         $regional = Auth::user()->regionalUser;
         $tim = Auth::user()->timUser;
 
-
+        // $waktuMulaiAudit = Audit::lists('waktuMulaiAudit');
+        // $waktuSelesaiAudit = Audit::lists('waktuSelesaiAudit');
+        $audit = Audit::where('keteranganAudit', '=', 'Off Audit')->get();
         
         $jadwalList = JadwalAuditor::where([
                     ['regionalAuditor', '=', $regional],
                     ['timAuditor', '=', $tim]
                 ])->paginate(9);
-        return view('jadwalAuditor')->with('jadwalList', $jadwalList);
+        return view('jadwalAuditor')->with('jadwalList', $jadwalList)
+                                    // ->with('waktuMulaiAudit', $waktuMulaiAudit)
+                                    // ->with('waktuSelesaiAudit', $waktuSelesaiAudit) 
+                                    ->with('audit', $audit);
     }
 
     public function delete($id) {

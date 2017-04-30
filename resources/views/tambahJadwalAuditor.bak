@@ -1,0 +1,202 @@
+@extends('layouts.app')
+
+@section('content')
+<?php
+if (Auth::user()->regionalUser == "1") {
+    $lokasi = "Medan";
+} elseif (Auth::user()->regionalUser == "2") {
+    $lokasi = "Pekanbaru";
+} elseif (Auth::user()->regionalUser == "3") {
+    $lokasi = "Palembang";
+} elseif (Auth::user()->regionalUser == "4") {
+    $lokasi = "Medan";
+} elseif (Auth::user()->regionalUser == "5") {
+    $lokasi = "Palembang";
+} elseif (Auth::user()->regionalUser == "6") {
+    $lokasi = "Sumatera";
+} elseif (Auth::user()->regionalUser == "7") {
+    $lokasi = "Jawa Bagian Barat";
+} elseif (Auth::user()->regionalUser == "8") {
+    $lokasi = "Jawa Bagian Barat";
+} elseif (Auth::user()->regionalUser == "9") {
+    $lokasi = "Bandung";
+} elseif (Auth::user()->regionalUser == "10") {
+    $lokasi = "Semarang";
+} elseif (Auth::user()->regionalUser == "11") {
+    $lokasi = "Tidak Ada Data";
+} elseif (Auth::user()->regionalUser == "12") {
+    $lokasi = "Surabaya";
+} elseif (Auth::user()->regionalUser == "13") {
+    $lokasi = "Banjarbaru";
+} elseif (Auth::user()->regionalUser == "14") {
+    $lokasi = "Balikpapan";
+} elseif (Auth::user()->regionalUser == "15") {
+    $lokasi = "Manado";
+} elseif (Auth::user()->regionalUser == "16") {
+    $lokasi = "Makassar";
+} elseif (Auth::user()->regionalUser == "17") {
+    $lokasi = "Mataram";
+} elseif (Auth::user()->regionalUser == "18") {
+    $lokasi = "Jayapura";
+} elseif (Auth::user()->regionalUser == "19") {
+    $lokasi = "Ambon";
+} elseif (Auth::user()->regionalUser == "20") {
+    $lokasi = "Tidak Ada Data";
+} elseif (Auth::user()->regionalUser == "21") {
+    $lokasi = "Kantor Pusat";
+}  else {
+    $lokasi = "Kantor Pusat";
+}
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-heading">Tambah Jadwal Diklat</div>
+
+                <div class="panel-body">
+
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                                <label>Nama Kegiatan</label>
+                                  <select required="required" id="namaKegiatan" name="namaKegiatan" class="form-control selectpicker"  title="Nama Kegiatan" >
+                                    <?php $i=0; ?>
+                                    @foreach ($diklatList as $book)
+                                        <?php $i++; ?>
+                                    <option value="{{ $book->namaDiklat }}">{{ $book->namaDiklat }}</option>
+                                    
+                                    @endforeach
+                                    
+
+                                  </select>
+                                 
+                            </div>
+                    </div>
+
+
+                    <p id="myLink"></p>
+                    
+                    
+                    
+                    <?php 
+                    $varPilihan=1;
+                    $diklat = App\Diklat::where([
+                                    ['namaDiklat', '=', $varPilihan],
+                                    ['statusDiklat', '=', 'Disetujui']
+                                ])->get();
+                     ?>
+
+                     <div class="col-xs-12">
+                        <div class="form-group">
+                                <label>Tanggal Kegiatan</label>
+                                  <select required="required" id="waktuKegiatan" name="waktuKegiatan" class="form-control selectpicker"  title="Waktu Kegiatan" >
+                                    <?php $i=0; ?>
+                                    @foreach ($diklat as $book)
+                                        <?php $i++; ?>
+                                    <option value="{{ $book->waktuDiklat }}">{{ $book->waktuDiklat }}</option>
+                                    
+                                    @endforeach
+                                    
+
+                                  </select>
+                                  
+
+                            </div>
+                    </div>
+
+
+                    <div class="col-xs-12">
+
+                    <form id="formJadwal" action="{{ url('/tambahJadwalAuditorBaru') }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" form="formJadwal" name="_token" value="{{ csrf_token() }}"/>
+                    <input type="hidden" form="formJadwal" name = "idAuditor" class="form-control" readonly="readonly" value="{{Auth::user()->id}}" />
+                    <input type="hidden" form="formJadwal" name = "timAuditor" class="form-control" readonly="readonly" value="{{Auth::user()->timUser}}" />
+                    <input type="hidden" form="formJadwal" name = "regionalAuditor" class="form-control" readonly="readonly" value="{{Auth::user()->regionalUser}}" />
+                    
+						
+
+                        @if ($diklatList->count())
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Nama Diklat</th>
+                                        <th>Waktu</th>
+                                        <th>Tempat</th>
+                                        
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php $i=0; ?>
+                                    @foreach ($diklatList as $book)
+                                        <?php $i++; ?>
+
+                                    <tr>
+          								
+
+                                        <td>{{ $book->namaDiklat }}</td>
+                                        <td style="display:none;"><input type="hidden" form="formJadwal" name = "namaKegiatan" class="form-control" readonly="readonly" value="{{ $book->namaDiklat }}" /></td>
+                                        <td>{{ $book->waktuDiklat }}</td>
+                                        <td style="display:none;"><input type="hidden" form="formJadwal" name = "waktuKegiatan" class="form-control" readonly="readonly" value="{{ $book->waktuDiklat }}" /></td>
+                                        
+                                        <td>{{ $book->tempatDiklat }}</td>
+                                        <td style="display:none;"><input type="hidden" form="formJadwal" name = "tempatKegiatan" class="form-control" readonly="readonly" value="{{ $book->tempatDiklat }}" /></td>
+                                        
+                                        <td><button type="submit" form="formJadwal" class="btn btn-warning" data-placement="bottom" title="Tambah Data" form="formJadwal" ><span class="glyphicon glyphicon-plus"></button></td>
+                                        </form>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <center>
+                            <form method="GET" action="{{ url('/tambahJadwalAuditorBaru') }}" id="my_form"></form>
+
+							
+                         </center>
+                        @else
+                            There are no book in the book list
+                        @endif
+                    </div>
+                    <div class="col-xs-12">
+                      <div style="float:right">
+                        <button class="btn btn-primary btn-simple" onclick="location.href='{{ url('/jadwalAuditor') }}'">Kembali</button>
+                        
+                      </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@stop
+
+@section('body.script')
+<script>
+function goBack() {
+    window.history.back();
+}
+
+$('#namaKegiatan').on('change', function() {
+  optionSelect = ( this.value );
+  alert(optionSelect);
+})
+
+var simpleText = "hello_world";
+var finalSplitText = simpleText.split("_");
+var splitText = finalSplitText[0];
+
+window.onload = function() {
+       //when the document is finished loading, replace everything
+       //between the <a ...> </a> tags with the value of splitText
+   document.getElementById("myLink").innerHTML=optionSelect;
+} 
+
+</script>
+
+
+@show

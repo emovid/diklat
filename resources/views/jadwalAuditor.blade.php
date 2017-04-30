@@ -21,7 +21,8 @@
                       <label> TIM : {{Auth::user()->timUser}} </label>
                       
                     </div>
-                    
+
+
                     
                     <div class="col-xs-12">
                         @if ($jadwalList->count())
@@ -47,7 +48,20 @@
                                                                                 
                                         <td>{{ $book->namaKegiatan }}</td>
                                         <td>{{ $book->tempatKegiatan }}</td>
-                                        <td>{{ $book->waktuKegiatan }}</td>
+                                        <?php $i=0; ?>
+                                        @foreach ($audit as $cektanggal)
+                                            <?php $i++; ?>
+                                            @if (($cektanggal->waktuMulaiAudit <  $book->waktuKegiatan ) && ($cektanggal->waktuSelesaiAudit >  $book->waktuKegiatan  ))
+                                            
+                                                <?php $s="Tidak Bentrok"; ?>
+                                            @else
+                                                <?php $s="fa fa-exclamation-triangle"; ?>
+                                            @endif
+                                        @endforeach
+                                        <td>{{ $book->waktuKegiatan }} <i class="<?php echo $s ?>" style="color: red" aria-hidden="true"></i></td>  
+                                        
+
+
                                         <td><a class="btn btn-danger" data-placement="bottom" title="Hapus Data" method="get" href="{{ url('/deleteJadwalAuditor/'.$book->id) }}"><span class="glyphicon glyphicon-trash"></a></td>
                                         
                                     
